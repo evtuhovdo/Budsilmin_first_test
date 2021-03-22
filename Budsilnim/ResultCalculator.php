@@ -1,6 +1,6 @@
 <?php
 
-namespace Budsilnum;
+namespace Budsilnim;
 
 use \RuntimeException;
 use \InvalidArgumentException;

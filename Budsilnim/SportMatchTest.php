@@ -1,6 +1,6 @@
 <?php
 
-namespace Budsilnum;
+namespace Budsilnim;
 
 require_once __DIR__ . '/ResultCalculator.php';
 require_once __DIR__ . '/TestPointCalculator.php';

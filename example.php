@@ -1,11 +1,11 @@
 <?php
 
-use Budsilnum\ResultCalculator;
-use Budsilnum\SportMatchTest;
-use Budsilnum\TestPointCalculator;
+use Budsilnim\ResultCalculator;
+use Budsilnim\SportMatchTest;
+use Budsilnim\TestPointCalculator;
 
 require_once __DIR__ . '/vendor/autoload.php';
-require_once __DIR__ . '/Budsilnum/SportMatchTest.php';
+require_once __DIR__ . '/Budsilnim/SportMatchTest.php';
 
 $resultCalculator = new ResultCalculator();
 
