@@ -2,10 +2,239 @@
 
 namespace Budsilnum;
 
+use \RuntimeException;
 use \InvalidArgumentException;
 use vermotr\Math\Matrix;
 
-class ResultCalculator {
+class ResultCalculator
+{
+    const SPORTS = [
+        [
+            'id' => 0,
+            'name' => 'Академическая гребля',
+        ],
+        [
+            'id' => 1,
+            'name' => 'Автоспорт',
+        ],
+        [
+            'id' => 2,
+            'name' => 'Бадминтон',
+        ],
+        [
+            'id' => 3,
+            'name' => 'Баскетбол',
+        ],
+        [
+            'id' => 4,
+            'name' => 'Биатлон',
+        ],
+        [
+            'id' => 5,
+            'name' => 'Бобслей',
+        ],
+        [
+            'id' => 6,
+            'name' => 'Бокс',
+        ],
+        [
+            'id' => 7,
+            'name' => 'Борьба вольная',
+        ],
+        [
+            'id' => 8,
+            'name' => 'Борьба греко-римская',
+        ],
+        [
+            'id' => 9,
+            'name' => 'Вело спорт шорт трек',
+        ],
+        [
+            'id' => 10,
+            'name' => 'Вело спорт кросс',
+        ],
+        [
+            'id' => 11,
+            'name' => 'Вело спорт кросс кантри',
+        ],
+        [
+            'id' => 12,
+            'name' => 'Водное поло',
+        ],
+        [
+            'id' => 13,
+            'name' => 'Воллейбол',
+        ],
+        [
+            'id' => 14,
+            'name' => 'Гандбол',
+        ],
+        [
+            'id' => 15,
+            'name' => 'Гимнастика',
+        ],
+        [
+            'id' => 16,
+            'name' => 'Гиревой спорт',
+        ],
+        [
+            'id' => 17,
+            'name' => 'Горнолыжный спорт слалом',
+        ],
+        [
+            'id' => 18,
+            'name' => 'Гребля на байдарках/каноэ',
+        ],
+        [
+            'id' => 19,
+            'name' => 'Дзюдо',
+        ],
+        [
+            'id' => 20,
+            'name' => 'Карате',
+        ],
+        [
+            'id' => 21,
+            'name' => 'Керлинг',
+        ],
+        [
+            'id' => 22,
+            'name' => 'Кикбоксинг',
+        ],
+        [
+            'id' => 23,
+            'name' => 'Конный спорт',
+        ],
+        [
+            'id' => 24,
+            'name' => 'Конькобежный спорт спринт',
+        ],
+        [
+            'id' => 25,
+            'name' => 'Конькобежный спорт стайер',
+        ],
+        [
+            'id' => 26,
+            'name' => 'Легкая атлетика спринт',
+        ],
+        [
+            'id' => 27,
+            'name' => 'легкая атлетика стайер',
+        ],
+        [
+            'id' => 28,
+            'name' => 'Метания (молот, ядра, и тд)',
+        ],
+        [
+            'id' => 29,
+            'name' => 'Прыжки в длину / высоту',
+        ],
+        [
+            'id' => 30,
+            'name' => 'Лыжный гонки',
+        ],
+        [
+            'id' => 31,
+            'name' => 'Мини футбол',
+        ],
+        [
+            'id' => 32,
+            'name' => 'Мото спорт',
+        ],
+        [
+            'id' => 33,
+            'name' => 'Настольный теннис',
+        ],
+        [
+            'id' => 34,
+            'name' => 'Парусный спорт',
+        ],
+        [
+            'id' => 35,
+            'name' => 'Пауэрлифтинг',
+        ],
+        [
+            'id' => 36,
+            'name' => 'Плавание спринт',
+        ],
+        [
+            'id' => 37,
+            'name' => 'Плавание стайэр',
+        ],
+        [
+            'id' => 38,
+            'name' => 'Прыжки в воду',
+        ],
+        [
+            'id' => 39,
+            'name' => 'Регби',
+        ],
+        [
+            'id' => 40,
+            'name' => 'Самбо',
+        ],
+        [
+            'id' => 41,
+            'name' => 'Санный спорт',
+        ],
+        [
+            'id' => 42,
+            'name' => 'Синхронное плавание',
+        ],
+        [
+            'id' => 43,
+            'name' => 'Сноуборд кросс',
+        ],
+        [
+            'id' => 44,
+            'name' => 'Сноуборд фристайл',
+        ],
+        [
+            'id' => 45,
+            'name' => 'Современное пятиборье',
+        ],
+        [
+            'id' => 46,
+            'name' => 'Стрелковый спорт',
+        ],
+        [
+            'id' => 47,
+            'name' => 'Теннис',
+        ],
+        [
+            'id' => 48,
+            'name' => 'Тяжелая атлетика',
+        ],
+        [
+            'id' => 49,
+            'name' => 'Фигурное катание',
+        ],
+        [
+            'id' => 50,
+            'name' => 'Фехтование',
+        ],
+        [
+            'id' => 51,
+            'name' => 'Футбол',
+        ],
+        [
+            'id' => 52,
+            'name' => 'Худ. Гимнастика',
+        ],
+        [
+            'id' => 53,
+            'name' => 'Хоккей',
+        ],
+        [
+            'id' => 54,
+            'name' => 'Шахматы',
+        ],
+        [
+            'id' => 55,
+            'name' => 'Шашки',
+        ],
+    ];
+
     const ALLOWED_TEST_VALUES = [0, 1];
 
     private $sportPointMatrix = [
@@ -123,17 +352,22 @@ class ResultCalculator {
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     ];
 
-    public function getMatrixResult(array $testPoints) {
+    /**
+     * @param array $testPoints
+     * @return Matrix
+     */
+    private function _getMatrixResult(array $testPoints): Matrix
+    {
         if (count($testPoints) !== 29) {
             throw new InvalidArgumentException("Результат тестов должен быть массивом размерности 29.");
         }
 
         foreach ($testPoints as $testPoint) {
-            if (count($testPoints) !== 1) {
+            if (count($testPoint) !== 1) {
                 throw new InvalidArgumentException("Результат единичного теста должен быть массивом размерности 1.");
             }
 
-            if(!in_array($testPoints, self::ALLOWED_TEST_VALUES)) {
+            if (!in_array($testPoint[0], self::ALLOWED_TEST_VALUES)) {
                 throw new InvalidArgumentException("Значение результат единичного теста должен быть значением 0 или 1.");
             }
         }
@@ -143,60 +377,68 @@ class ResultCalculator {
 
         return $matrix1->multiply($matrix2);
     }
+
+    /**
+     * @param array $testPoints
+     * @return array
+     */
+    public function getResult(array $testPoints)
+    {
+        $matrixResult = $this->_getMatrixResult($testPoints);
+
+        $res = [];
+
+        foreach ($matrixResult as $item) {
+            $res[] = 100 + (int)$item[0];
+        }
+
+        return $res;
+    }
+
+    /**
+     * @param array $testPoints
+     * @return array
+     */
+    public function getResultWithSportNames(array $testPoints)
+    {
+        $resultOnlyDigits = $this->getResult($testPoints);
+
+        $res = [];
+
+        foreach ($resultOnlyDigits as $key => $value) {
+            $res[] = [
+                'name' => $this->getSportById($key),
+                'value' => $value,
+            ];
+        }
+
+        return $res;
+    }
+
+    /**
+     * @param int $id
+     * @return array
+     */
+    public function getSportById(int $id): array
+    {
+        if ($id < 0) {
+            throw new InvalidArgumentException("Идентификатор спорта должен быть положительным числом.");
+        }
+
+        $found = array_filter(self::SPORTS, function ($value) use ($id) {
+
+            return (string)$value['id'] === (string)$id;
+        });
+
+        if (empty($found)) {
+            throw new RuntimeException(sprintf('Не найден спорт с идентификатором %s', (string)$id));
+        }
+
+        if (count($found) > 1) {
+            throw new RuntimeException(sprintf('Найдено больше одного вида спорта с идентификатором %s', (string)$id));
+        }
+
+        return array_shift($found);
+    }
+
 }
-
-//
-//
-//$testPoints = [
-//    [0],
-//    [0],
-//    [1],
-//
-//    [0],
-//    [0],
-//    [1],
-//
-//    [0],
-//    [0],
-//    [1],
-//
-//    [0],
-//    [0],
-//    [1],
-//
-//    [0],
-//    [0],
-//    [1],
-//
-//    [0],
-//    [0],
-//    [1],
-//
-//    [0],
-//    [0],
-//    [1],
-//
-//    [0],
-//    [0],
-//    [1],
-//
-//    [0],
-//    [0],
-//
-//    [1],
-//    [0],
-//    [1],
-//];
-//
-//// With a bi-dimensional array
-//$matrix1 = new Matrix($sportPointMatrix);
-//$matrix2 = new Matrix($testPoints);
-////var_dump($matrix3);
-//$res = $matrix1->multiply($matrix2);
-//
-//var_dump($res);
-
-//$result = matrixmult($sportPointMatrix, $testPoints);
-//
-//
-//print_r($result);
