@@ -371,6 +371,22 @@ class TestPointCalculator
         }
     }
 
+    public function data(): array
+    {
+        return [
+            'anthropometry' => $this->anthropometry,
+            'muscleFiberType' => $this->muscleFiberType,
+            'lungVolume' => $this->lungVolume,
+            'psychology' => $this->psychology,
+            'cns' => $this->cns,
+            'flexibility' => $this->flexibility,
+            'reaction' => $this->reaction,
+            'coordination' => $this->coordination,
+            'sex' => $this->sex,
+            'possibleHeight' => $this->possibleHeight,
+        ];
+    }
+
     /**
      * @return \int[][]
      */
